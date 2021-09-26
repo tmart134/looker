@@ -1,0 +1,45 @@
+#setting up zendesk model copied some of the blendo Zendesk block
+#https://looker.com/platform/blocks/source/zendesk-analytics-by-blendo
+explore: zendesk_tickets {
+  join: zendesk_groups {
+    type: left_outer
+    sql_on: ${zendesk_tickets.group_id} = ${zendesk_groups.id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_users {
+    type: left_outer
+    sql_on: ${zendesk_tickets.assignee_id} = ${zendesk_users.id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_ticket_metrics {
+    type: left_outer
+    sql_on: ${zendesk_tickets.id} = ${zendesk_ticket_metrics.ticket_id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_organizations {
+    type:  left_outer
+    sql_on: ${zendesk_tickets.organization_id} = ${zendesk_organizations.id} ;;
+    relationship: many_to_one
+  }
+
+  join: zendesk_tickets_tags {
+    type: left_outer
+    sql_on: ${zendesk_tickets.id} = ${zendesk_tickets_tags.zendesk_tickets_id} ;;
+    relationship:  many_to_one
+  }
+
+  join: zendesk_tickets_via {
+    type: left_outer
+    sql_on: ${zendesk_tickets.id} = ${zendesk_tickets_via.zendesk_tickets_id} ;;
+    relationship:  many_to_one
+  }
+
+  join: zendesk_tickets_custom_fields {
+    type: left_outer
+    sql_on: ${zendesk_tickets.id} = ${zendesk_tickets_custom_fields.zendesk_tickets_id} ;;
+    relationship: many_to_one
+  }
+}

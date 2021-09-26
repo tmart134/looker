@@ -1,0 +1,4 @@
+SELECT subscriptions.* FROM subscriptions
+left join employees on employees.id = subscriptions.employee_id
+left join companies on companies.id = employees.company_id
+where companies.name = 'Company Testing'
